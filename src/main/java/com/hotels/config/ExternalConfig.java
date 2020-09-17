@@ -18,7 +18,7 @@ public class ExternalConfig {
 
 	@PostConstruct
 	private void init() {
-		ClassPathResource resource = new ClassPathResource("external-config.properties");
+		ClassPathResource resource = new ClassPathResource("application.properties");
 		try {
 			configuration = new PropertiesConfiguration(resource.getFile());
 		} catch (ConfigurationException e) {

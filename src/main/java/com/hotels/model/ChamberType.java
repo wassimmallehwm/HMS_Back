@@ -25,9 +25,8 @@ public class ChamberType {
 		super();
 	}
 
-	public ChamberType(Long id, String name, double price_per_night) {
+	public ChamberType(String name, double price_per_night) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.price_per_night = price_per_night;
 	}

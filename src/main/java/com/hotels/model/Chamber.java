@@ -23,16 +23,20 @@ public class Chamber {
     @ManyToOne
 	@JoinColumn(name = "type_id", referencedColumnName = "id")
     private ChamberType type;
+    
+    @ManyToOne()
+    @JoinColumn(name = "hotel_id", referencedColumnName = "id")    
+    private Hotel hotel;
 
 	public Chamber() {
 		super();
 	}
 
-	public Chamber(Long id, String ref, ChamberType type) {
+	public Chamber(String ref, ChamberType type, Hotel hotel) {
 		super();
-		this.id = id;
 		this.ref = ref;
 		this.type = type;
+		this.hotel = hotel;
 	}
 
 	public Long getId() {
@@ -57,6 +61,14 @@ public class Chamber {
 
 	public void setType(ChamberType type) {
 		this.type = type;
+	}
+
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
     
     

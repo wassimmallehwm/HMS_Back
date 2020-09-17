@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,17 +22,28 @@ public class Reservation {
     @Column
     private Date createdOn;
     
-    @Column
-    private long cin_client;
-    
-    @Column
-    private int nb_persons;
+    @ManyToOne()
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    private Client client;
     
     @Column
     private int duration;
     
     @Column
     private double price;
+    
+    @Column
+    private int nbAdultes;
+    
+    @Column
+    private int nbKids;
+    
+    @Column
+    private String state;
+    
+    @ManyToOne()
+    @JoinColumn(name = "chamber_id", referencedColumnName = "id")    
+    private Chamber chamber;
 
 	public Reservation() {
 		super();
@@ -41,8 +54,6 @@ public class Reservation {
 		super();
 		this.id = id;
 		this.createdOn = createdOn;
-		this.cin_client = cin_client;
-		this.nb_persons = nb_persons;
 		this.duration = duration;
 		this.price = price;
 	}
@@ -64,22 +75,6 @@ public class Reservation {
 		this.createdOn = createdOn;
 	}
 
-	public long getCin_client() {
-		return cin_client;
-	}
-
-	public void setCin_client(long cin_client) {
-		this.cin_client = cin_client;
-	}
-
-	public int getNb_persons() {
-		return nb_persons;
-	}
-
-	public void setNb_persons(int nb_persons) {
-		this.nb_persons = nb_persons;
-	}
-
 	public int getDuration() {
 		return duration;
 	}
@@ -94,6 +89,46 @@ public class Reservation {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public int getNbAdultes() {
+		return nbAdultes;
+	}
+
+	public void setNbAdultes(int nbAdultes) {
+		this.nbAdultes = nbAdultes;
+	}
+
+	public int getNbKids() {
+		return nbKids;
+	}
+
+	public void setNbKids(int nbKids) {
+		this.nbKids = nbKids;
+	}
+
+	public Chamber getChamber() {
+		return chamber;
+	}
+
+	public void setChamber(Chamber chamber) {
+		this.chamber = chamber;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
     
     
