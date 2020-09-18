@@ -2,17 +2,18 @@ package com.hotels.service;
 
 import java.util.List;
 
+import com.hotels.dto.HotelDto;
 import com.hotels.model.Hotel;
 
 public interface HotelService {
 
-	List<Hotel> findAll();
+	List<HotelDto> findAll();
 
-	Hotel findOne(long id);
+	HotelDto findOne(long id);
 	
-	Hotel create(Hotel hotel);
+	Hotel create(HotelDto hotel);
 	
-	Hotel update(Hotel hotel);
+	Hotel update(HotelDto hotel);
 	
 	void delete(long id);
 }

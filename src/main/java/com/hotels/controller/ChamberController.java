@@ -16,23 +16,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hotels.dto.HotelDto;
+import com.hotels.dto.ChamberDto;
 import com.hotels.message.response.ResponseMessage;
-import com.hotels.model.Hotel;
-import com.hotels.service.HotelService;
+import com.hotels.model.ChamberType;
+import com.hotels.service.ChamberService;
+import com.hotels.service.ChamberTypeService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/hotels")
-public class HotelController {
+@RequestMapping("/api/chambers")
+public class ChamberController {
 	
 	@Autowired
-	private HotelService hotelService;
+	private ChamberService chamberService;
+	
+	@Autowired
+	private ChamberTypeService chamberTypeService;
 	
 	@PostMapping("/create")
-	public ResponseEntity<ResponseMessage> create(@RequestBody HotelDto hotel){
+	public ResponseEntity<ResponseMessage> create(@RequestBody ChamberDto chamber){
 		try {
-			hotelService.create(hotel);
+			chamberService.create(chamber);
 			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Created with success !") ,HttpStatus.CREATED);
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -43,8 +47,19 @@ public class HotelController {
 	@GetMapping("/findall")
 	public ResponseEntity<?> findAll(){
 		try {
-			List<HotelDto> hotels =  hotelService.findAll();
-			return new ResponseEntity<List<HotelDto>>(hotels ,HttpStatus.OK);
+			List<ChamberDto> hotels =  chamberService.findAll();
+			return new ResponseEntity<List<ChamberDto>>(hotels ,HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Error !") ,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/findall-types")
+	public ResponseEntity<?> findAllTypes(){
+		try {
+			List<ChamberType> hotels =  chamberTypeService.findAll();
+			return new ResponseEntity<List<ChamberType>>(hotels ,HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Error !") ,HttpStatus.INTERNAL_SERVER_ERROR);
@@ -54,8 +69,8 @@ public class HotelController {
 	@GetMapping("/findone/{id}")
 	public ResponseEntity<?> findOne(@PathVariable long id){
 		try {
-			HotelDto hotel =  hotelService.findOne(id);
-			return new ResponseEntity<HotelDto>(hotel ,HttpStatus.OK);
+			ChamberDto chamber =  chamberService.findOne(id);
+			return new ResponseEntity<ChamberDto>(chamber ,HttpStatus.OK);
 		} catch(NullPointerException e) {
 			e.printStackTrace();
 			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Not found !") ,HttpStatus.NOT_FOUND);
@@ -66,9 +81,9 @@ public class HotelController {
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<ResponseMessage> update(@RequestBody HotelDto hotel){
+	public ResponseEntity<ResponseMessage> update(@RequestBody ChamberDto chamber){
 		try {
-			hotelService.update(hotel);
+			chamberService.update(chamber);
 			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Updated with success !") ,HttpStatus.CREATED);
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -79,7 +94,7 @@ public class HotelController {
 	@DeleteMapping("/delete")
 	public ResponseEntity<ResponseMessage> delete(@RequestParam long id){
 		try {
-			hotelService.delete(id);
+			chamberService.delete(id);
 			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Deleted with success !") ,HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();

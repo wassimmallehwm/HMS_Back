@@ -2,17 +2,18 @@ package com.hotels.service;
 
 import java.util.List;
 
+import com.hotels.dto.ChamberDto;
 import com.hotels.model.Chamber;
 
 public interface ChamberService {
 
-	List<Chamber> findAll();
+	List<ChamberDto> findAll();
 
-	Chamber findOne(long id);
+	ChamberDto findOne(long id);
 	
-	Chamber create(Chamber chamber);
+	Chamber create(ChamberDto chamber);
 	
-	Chamber update(Chamber chamber);
+	Chamber update(ChamberDto chamber);
 	
 	void delete(long id);
 

@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "chambers")
 public class Chamber {
@@ -25,6 +27,7 @@ public class Chamber {
     private ChamberType type;
     
     @ManyToOne()
+    @JsonManagedReference
     @JoinColumn(name = "hotel_id", referencedColumnName = "id")    
     private Hotel hotel;
 

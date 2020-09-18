@@ -73,7 +73,7 @@ public class ApplicationEventListener implements ApplicationListener<ContextRefr
 	private void initAppConfig() {
 		AppConfig conf = new AppConfig();
 		conf.setLang("en");
-		conf.setTheme("1");
+		conf.setTheme("0");
 		configRepository.save(conf);
 	}
 	

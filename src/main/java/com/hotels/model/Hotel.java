@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "hotels")
 public class Hotel {
@@ -36,7 +38,8 @@ public class Hotel {
     @Column
     private String tel;
     
-    @OneToMany(mappedBy="hotel",fetch = FetchType.LAZY)    
+    @OneToMany(mappedBy="hotel",fetch = FetchType.LAZY)
+    @JsonBackReference
     private Set<Chamber> chambers = new HashSet<>();
 
 	public Hotel() {
