@@ -51,7 +51,7 @@ public class HotelServiceImpl implements HotelService {
 	}
 	
 	private List<HotelDto> mapDtoList(List<Hotel> hotels){
-		List<HotelDto> hotelsDto = new ArrayList();
+		List<HotelDto> hotelsDto = new ArrayList<HotelDto>();
 		for(Hotel hotel: hotels) {
 			hotelsDto.add(mapHotelToHotelDto(hotel));
 		}

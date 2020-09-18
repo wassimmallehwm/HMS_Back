@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hotels.dto.ChamberDto;
-import com.hotels.dto.HotelDto;
 import com.hotels.model.Chamber;
-import com.hotels.model.ChamberType;
 import com.hotels.model.Hotel;
 import com.hotels.repository.ChamberRepository;
 import com.hotels.repository.ChamberTypeRepository;
@@ -64,7 +62,7 @@ public class ChamberServiceImpl implements ChamberService {
 
 	
 	private List<ChamberDto> mapDtoList(List<Chamber> chambers){
-		List<ChamberDto> chambersDto = new ArrayList();
+		List<ChamberDto> chambersDto = new ArrayList<ChamberDto>();
 		for(Chamber chamber: chambers) {
 			chambersDto.add(mapChamberToChamberDto(chamber));
 		}

@@ -16,34 +16,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hotels.dto.HotelDto;
 import com.hotels.message.response.ResponseMessage;
-import com.hotels.service.HotelService;
+import com.hotels.model.Client;
+import com.hotels.service.ClientService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/hotels")
-public class HotelController {
+@RequestMapping("/api/clients")
+public class ClientController {
 	
 	@Autowired
-	private HotelService hotelService;
-	
-	@PostMapping("/create")
-	public ResponseEntity<ResponseMessage> create(@RequestBody HotelDto hotel){
-		try {
-			hotelService.create(hotel);
-			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Created with success !") ,HttpStatus.CREATED);
-		} catch(Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Error !") ,HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+	ClientService clientService;
 	
 	@GetMapping("/findall")
 	public ResponseEntity<?> findAll(){
 		try {
-			List<HotelDto> hotels =  hotelService.findAll();
-			return new ResponseEntity<List<HotelDto>>(hotels ,HttpStatus.OK);
+			List<Client> clients =  clientService.findAll();
+			return new ResponseEntity<List<Client>>(clients ,HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Error !") ,HttpStatus.INTERNAL_SERVER_ERROR);
@@ -53,11 +42,19 @@ public class HotelController {
 	@GetMapping("/findone/{id}")
 	public ResponseEntity<?> findOne(@PathVariable long id){
 		try {
-			HotelDto hotel =  hotelService.findOne(id);
-			return new ResponseEntity<HotelDto>(hotel ,HttpStatus.OK);
-		} catch(NullPointerException e) {
+			Client client =  clientService.findOne(id);
+			return new ResponseEntity<Client>(client ,HttpStatus.OK);
+		} catch(Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Not found !") ,HttpStatus.NOT_FOUND);
+			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Error !") ,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping("/create")
+	public ResponseEntity<ResponseMessage> create(@RequestBody Client client){
+		try {
+			clientService.create(client);
+			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Created with success !") ,HttpStatus.CREATED);
 		} catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Error !") ,HttpStatus.INTERNAL_SERVER_ERROR);
@@ -65,9 +62,9 @@ public class HotelController {
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<ResponseMessage> update(@RequestBody HotelDto hotel){
+	public ResponseEntity<ResponseMessage> update(@RequestBody Client client){
 		try {
-			hotelService.update(hotel);
+			clientService.update(client);
 			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Updated with success !") ,HttpStatus.CREATED);
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -78,12 +75,11 @@ public class HotelController {
 	@DeleteMapping("/delete")
 	public ResponseEntity<ResponseMessage> delete(@RequestParam long id){
 		try {
-			hotelService.delete(id);
+			clientService.delete(id);
 			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Deleted with success !") ,HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Error !") ,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
 }

@@ -2,17 +2,18 @@ package com.hotels.service;
 
 import java.util.List;
 
+import com.hotels.dto.ReservationDto;
 import com.hotels.model.Reservation;
 
 public interface ReservationService {
 
-	List<Reservation> findAll();
+	List<ReservationDto> findAll();
 
-	Reservation findOne(long id);
+	ReservationDto findOne(long id);
 	
-	Reservation create(Reservation reservation);
+	Reservation create(ReservationDto reservation, long clientId);
 	
-	Reservation update(Reservation reservation);
+	Reservation update(ReservationDto reservation);
 	
 	void delete(long id);
 
