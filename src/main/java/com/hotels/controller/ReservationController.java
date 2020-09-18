@@ -50,10 +50,10 @@ public class ReservationController {
 		}
 	}
 	
-	@PostMapping("/create/{id}")
-	public ResponseEntity<ResponseMessage> create(@RequestBody ReservationDto reservation, @PathVariable long clientId){
+	@PostMapping("/create/{clientId}/{hotelId}")
+	public ResponseEntity<ResponseMessage> create(@RequestBody ReservationDto reservation, @PathVariable long clientId, @PathVariable long hotelId){
 		try {
-			reservationService.create(reservation, clientId);
+			reservationService.create(reservation, clientId, hotelId);
 			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Created with success !") ,HttpStatus.CREATED);
 		} catch(Exception e) {
 			e.printStackTrace();

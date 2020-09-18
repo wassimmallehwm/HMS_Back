@@ -24,7 +24,7 @@ public class Chamber {
     
     @ManyToOne
 	@JoinColumn(name = "type_id", referencedColumnName = "id")
-    private ChamberType type;
+    private ChamberType chamberType;
     
     @ManyToOne()
     @JsonManagedReference
@@ -38,7 +38,7 @@ public class Chamber {
 	public Chamber(String ref, ChamberType type, Hotel hotel) {
 		super();
 		this.ref = ref;
-		this.type = type;
+		this.chamberType = type;
 		this.hotel = hotel;
 	}
 
@@ -59,11 +59,11 @@ public class Chamber {
 	}
 
 	public ChamberType getType() {
-		return type;
+		return chamberType;
 	}
 
 	public void setType(ChamberType type) {
-		this.type = type;
+		this.chamberType = type;
 	}
 
 	public Hotel getHotel() {

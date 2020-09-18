@@ -7,12 +7,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hotels.dto.ChamberReservationDto;
+import com.hotels.dto.ClientDto;
 import com.hotels.dto.ReservationDto;
 import com.hotels.model.Chamber;
 import com.hotels.model.Client;
+import com.hotels.model.Hotel;
 import com.hotels.model.Reservation;
 import com.hotels.repository.ChamberRepository;
 import com.hotels.repository.ClientRepository;
+import com.hotels.repository.HotelRepository;
 import com.hotels.repository.ReservationRepository;
 import com.hotels.service.ReservationService;
 
@@ -21,6 +25,9 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	@Autowired
 	private ReservationRepository reservationRepository;
+	
+	@Autowired
+	private HotelRepository hotelRepository;
 	
 	@Autowired
 	private ClientRepository clientRepository;
@@ -39,9 +46,12 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public Reservation create(ReservationDto reservation, long clientId) {
+	public Reservation create(ReservationDto reservation, long clientId, long hotelId) {
+		Hotel hotel = hotelRepository.findById(hotelId).orElse(null);
 		Client client = clientRepository.findById(clientId).orElse(null);
+		Chamber chamber = chamberRepository.findFirstByChamberTypeAndHotel(reservation.getChamber(), hotel);
 		Reservation reserv = mapDtoToEntity(reservation);
+		reserv.setChamber(chamber);
 		reserv.setClient(client);
 		reserv.setCreatedOn(new Date());
 		return reservationRepository.save(reserv);
@@ -74,8 +84,7 @@ public class ReservationServiceImpl implements ReservationService{
 	private ReservationDto mapEntityToDto(Reservation reservation) {
 		ReservationDto dto = new ReservationDto();
 		dto.setId(reservation.getId());
-		dto.setChamber(reservation.getChamber().getId());
-		dto.setClient(reservation.getClient().getId());
+		dto.setClient(new ClientDto(reservation.getClient().getId(), reservation.getClient().getFirstname() + " " + reservation.getClient().getLastname()));
 		dto.setDuration(reservation.getDuration());
 		dto.setNbAdultes(reservation.getNbAdultes());
 		dto.setNbKids(reservation.getNbKids());
@@ -86,10 +95,6 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	private Reservation mapDtoToEntity(ReservationDto reservation) {
 		Reservation dto = new Reservation();
-		Chamber ch = chamberRepository.findById(reservation.getChamber()).orElse(null);
-		dto.setChamber(ch);
-		Client cl = clientRepository.findById(reservation.getChamber()).orElse(null);
-		dto.setClient(cl);
 		dto.setDuration(reservation.getDuration());
 		dto.setNbAdultes(reservation.getNbAdultes());
 		dto.setNbKids(reservation.getNbKids());

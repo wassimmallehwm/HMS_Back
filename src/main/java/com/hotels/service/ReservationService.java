@@ -11,7 +11,7 @@ public interface ReservationService {
 
 	ReservationDto findOne(long id);
 	
-	Reservation create(ReservationDto reservation, long clientId);
+	Reservation create(ReservationDto reservation, long clientId, long hotelId);
 	
 	Reservation update(ReservationDto reservation);
 	

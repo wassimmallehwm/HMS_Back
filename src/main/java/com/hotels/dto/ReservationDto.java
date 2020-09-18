@@ -1,6 +1,7 @@
 package com.hotels.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.hotels.model.ChamberType;
 
 public class ReservationDto {
 
@@ -8,10 +9,10 @@ public class ReservationDto {
 	private Long id;
     
     @JsonProperty
-    private long client;
+    private ClientDto client;
     
     @JsonProperty
-    private long chamber;
+    private ChamberType chamber;
     
     @JsonProperty
     private int duration;
@@ -33,7 +34,7 @@ public class ReservationDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReservationDto(Long id, long client, long chamber, int duration, double price, int nbAdultes, int nbKids,
+	public ReservationDto(Long id, ClientDto client, ChamberType chamber, int duration, double price, int nbAdultes, int nbKids,
 			String state) {
 		super();
 		this.id = id;
@@ -54,19 +55,19 @@ public class ReservationDto {
 		this.id = id;
 	}
 
-	public long getClient() {
+	public ClientDto getClient() {
 		return client;
 	}
 
-	public void setClient(long client) {
+	public void setClient(ClientDto client) {
 		this.client = client;
 	}
 
-	public long getChamber() {
+	public ChamberType getChamber() {
 		return chamber;
 	}
 
-	public void setChamber(long chamber) {
+	public void setChamber(ChamberType chamber) {
 		this.chamber = chamber;
 	}
 

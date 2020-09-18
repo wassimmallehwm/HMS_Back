@@ -51,13 +51,13 @@ public class ClientController {
 	}
 	
 	@PostMapping("/create")
-	public ResponseEntity<ResponseMessage> create(@RequestBody Client client){
+	public ResponseEntity<Long> create(@RequestBody Client client){
 		try {
-			clientService.create(client);
-			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Created with success !") ,HttpStatus.CREATED);
+			Client cl = clientService.create(client);
+			return new ResponseEntity<Long>(cl.getId() ,HttpStatus.CREATED);
 		} catch(Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<ResponseMessage>(new ResponseMessage("Error !") ,HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Long>(0l ,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
